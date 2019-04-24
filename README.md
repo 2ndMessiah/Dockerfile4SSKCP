@@ -1,16 +1,15 @@
 # Up-to-date ss+kcptun on latest alpine.
 
-#Useful ENVs that might be edited by you:
+# Useful ENVs that might be edited by you:
 
-''
-SERVER_PORT=37210 
-PASSWORD=pwd 
-METHOD=aes-128-gcm 
-KCP_LISTEN=38240 
-KCP_PASS=kcppwd 
-KCP_ENCRYPT=aes 
-KCP_MODE=fast2 
-''
+SERVER_PORT=37210  
+PASSWORD=pwd  
+METHOD=aes-128-gcm  
+KCP_LISTEN=38240  
+KCP_PASS=kcppwd  
+KCP_ENCRYPT=aes  
+KCP_MODE=fast2  
+
 
 
 
