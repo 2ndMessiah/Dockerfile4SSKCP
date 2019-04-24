@@ -62,8 +62,8 @@ RUN set -ex && \
 
 ENV SERVER_ADDR=0.0.0.0 \
 SERVER_PORT=37210 \
-PASSWORD=laogao \
-METHOD=aes-256-cfb \
+PASSWORD=pwd \
+METHOD=aes-128-gcm \
 TIMEOUT=300 \
 FASTOPEN=--fast-open \
 UDP_RELAY=-u \
@@ -71,8 +71,8 @@ DNS_ADDR=8.8.8.8 \
 DNS_ADDR_2=8.8.4.4 \
 ARGS='' \
 KCP_LISTEN=38240 \
-KCP_PASS=phpgao \
-KCP_ENCRYPT=aes-192 \
+KCP_PASS=kcppwd \
+KCP_ENCRYPT=aes \
 KCP_MODE=fast2 \
 KCP_MUT=1350 \
 KCP_NOCOMP='' \
