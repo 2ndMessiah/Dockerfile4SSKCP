@@ -1,5 +1,7 @@
 FROM alpine:latest
 MAINTAINER saywhat13
+#forked form @phpGao
+
 
 ARG SS_VER=3.2.5
 ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SS_VER/shadowsocks-libev-$SS_VER.tar.gz
