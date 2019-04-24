@@ -1,5 +1,5 @@
-FROM alpine:latest
-MAINTAINER saywhat13 
+FROM alpine:3.7
+MAINTAINER Gao <noreply@phpgao.com>
 
 ARG SS_VER=3.2.5
 ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SS_VER/shadowsocks-libev-$SS_VER.tar.gz
@@ -40,6 +40,13 @@ RUN set -ex && \
     ./configure --prefix=/usr --disable-documentation && \
     make install && \
     cd /tmp && \
+    git clone https://github.com/shadowsocks/simple-obfs.git && \
+    cd simple-obfs && \
+    git submodule update --init --recursive && \
+    ./autogen.sh && \
+    ./configure && \
+    make && \
+    make install && \
     cd .. && \
     runDeps="$( \
         scanelf --needed --nobanner /usr/bin/ss-* \
@@ -52,18 +59,18 @@ RUN set -ex && \
     rm -rf /tmp/*
 
 ENV SERVER_ADDR=0.0.0.0 \
-SERVER_PORT=443 \
-PASSWORD=passwd \
-METHOD=aes-128-gcm \
+SERVER_PORT=37210 \
+PASSWORD=laogao \
+METHOD=aes-256-cfb \
 TIMEOUT=300 \
 FASTOPEN=--fast-open \
 UDP_RELAY=-u \
 DNS_ADDR=8.8.8.8 \
 DNS_ADDR_2=8.8.4.4 \
 ARGS='' \
-KCP_LISTEN=2333 \
-KCP_PASS=passwd \
-KCP_ENCRYPT=aes \
+KCP_LISTEN=38240 \
+KCP_PASS=phpgao \
+KCP_ENCRYPT=aes-192 \
 KCP_MODE=fast2 \
 KCP_MUT=1350 \
 KCP_NOCOMP='' \
