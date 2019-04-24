@@ -1,6 +1,6 @@
 # Up-to-date ss+kcptun on latest alpine.
 
-# Useful ENVs that might be edited by you:
+# Useful ENVs that might be edited by you
 
 SERVER_PORT=37210  
 PASSWORD=pwd  
