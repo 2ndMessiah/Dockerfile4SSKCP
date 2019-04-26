@@ -1,6 +1,6 @@
 FROM alpine:latest
 MAINTAINER saywhat13
-#forked from @phpGao
+
 
 
 ARG SS_VER=3.2.5
