@@ -42,14 +42,6 @@ RUN set -ex && \
     ./configure --prefix=/usr --disable-documentation && \
     make install && \
     cd /tmp && \
-    git clone https://github.com/shadowsocks/simple-obfs.git && \
-    cd simple-obfs && \
-    git submodule update --init --recursive && \
-    ./autogen.sh && \
-    ./configure && \
-    make && \
-    make install && \
-    cd .. && \
     runDeps="$( \
         scanelf --needed --nobanner /usr/bin/ss-* \
             | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
