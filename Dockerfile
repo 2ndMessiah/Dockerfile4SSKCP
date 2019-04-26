@@ -7,6 +7,29 @@ ARG SS_VER=3.2.5
 ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SS_VER/shadowsocks-libev-$SS_VER.tar.gz
 ARG KCP_VER=20190424
 ARG KCP_URL=https://github.com/xtaci/kcptun/releases/download/v$KCP_VER/kcptun-linux-amd64-$KCP_VER.tar.gz
+ARG OPENSSH_VERSION=${OPENSSH_VERSION:-7.7_p1-r3}
+ADD entrypoint.sh /
+
+ENV SERVER_ADDR=0.0.0.0 \
+SERVER_PORT=37210 \
+PASSWORD=pwd \
+METHOD=aes-128-gcm \
+TIMEOUT=300 \
+FASTOPEN=--fast-open \
+UDP_RELAY=-u \
+DNS_ADDR=8.8.8.8 \
+DNS_ADDR_2=8.8.4.4 \
+ARGS='' \
+KCP_LISTEN=38240 \
+KCP_PASS=kcppwd \
+KCP_ENCRYPT=aes \
+KCP_MODE=fast2 \
+KCP_MUT=1350 \
+KCP_NOCOMP='' \
+KCP_ARGS='' \
+OPENSSH_VERSION=${OPENSSH_VERSION} \
+ROOT_PASSWORD=root \
+KEYPAIR_LOGIN=false
 
 RUN set -ex && \
     apk add --no-cache --virtual .build-deps \
@@ -32,6 +55,7 @@ RUN set -ex && \
                                 xmlto \
                                 libpcre32 \
                                 g++ && \
+                                openssh=${OPENSSH_VERSION}\
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     cd /tmp && \
     curl -sSL $KCP_URL | tar xz server_linux_amd64 && \
@@ -50,31 +74,18 @@ RUN set -ex && \
     )" && \
     apk add --no-cache --virtual .run-deps $runDeps && \
     apk del .build-deps && \
-    rm -rf /tmp/*
-
-ENV SERVER_ADDR=0.0.0.0 \
-SERVER_PORT=37210 \
-PASSWORD=pwd \
-METHOD=aes-128-gcm \
-TIMEOUT=300 \
-FASTOPEN=--fast-open \
-UDP_RELAY=-u \
-DNS_ADDR=8.8.8.8 \
-DNS_ADDR_2=8.8.4.4 \
-ARGS='' \
-KCP_LISTEN=38240 \
-KCP_PASS=kcppwd \
-KCP_ENCRYPT=aes \
-KCP_MODE=fast2 \
-KCP_MUT=1350 \
-KCP_NOCOMP='' \
-KCP_ARGS=''
+    rm -rf /tmp/*\
+    && chmod +x /entrypoint.sh \
+	&& mkdir -p /root/.ssh \
+	&& rm -rf /var/cache/apk/* /tmp/*
 
 USER nobody
 
-EXPOSE $SERVER_PORT/tcp $SERVER_PORT/udp
+EXPOSE $SERVER_PORT/tcp $SERVER_PORT/udp 22/tcp
 EXPOSE $KCP_LISTEN/udp
 
+VOLUME      ["/etc/ssh"]
+ENTRYPOINT  ["/entrypoint.sh"]
 CMD /usr/bin/ss-server -s $SERVER_ADDR \
               -p $SERVER_PORT \
               -k $PASSWORD \
