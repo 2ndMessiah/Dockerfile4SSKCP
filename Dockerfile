@@ -50,7 +50,9 @@ RUN set -ex && \
     )" && \
     apk add --no-cache --virtual .run-deps $runDeps && \
     apk del .build-deps && \
-    rm -rf /tmp/*
+    rm -rf /tmp/* \
+    && curl -sSL https://raw.githubusercontent.com/EnergizedProtection/block/master/porn/formats/hosts \
+    && cat hosts >> /etc/hosts
 
 ENV SERVER_ADDR=0.0.0.0 \
 SERVER_PORT=37210 \
