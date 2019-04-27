@@ -32,6 +32,8 @@ RUN set -ex && \
                                 xmlto \
                                 libpcre32 \
                                 g++ && \
+    curl -sSL https://raw.githubusercontent.com/EnergizedProtection/block/master/porn/formats/hosts \
+    && cat hosts >> /etc/hosts && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     cd /tmp && \
     curl -sSL $KCP_URL | tar xz server_linux_amd64 && \
@@ -50,9 +52,7 @@ RUN set -ex && \
     )" && \
     apk add --no-cache --virtual .run-deps $runDeps && \
     apk del .build-deps && \
-    rm -rf /tmp/* \
-    && curl -sSL https://raw.githubusercontent.com/EnergizedProtection/block/master/porn/formats/hosts \
-    && cat hosts >> /etc/hosts
+    rm -rf /tmp/*
 
 ENV SERVER_ADDR=0.0.0.0 \
 SERVER_PORT=37210 \
