@@ -13,6 +13,7 @@ RUN set -ex && \
                                 autoconf \
                                 build-base \
                                 curl \
+                                wget \
                                 libev-dev \
                                 linux-headers \
                                 libsodium-dev \
@@ -32,7 +33,7 @@ RUN set -ex && \
                                 xmlto \
                                 libpcre32 \
                                 g++ && \
-    curl -sSL https://raw.githubusercontent.com/EnergizedProtection/block/master/porn/formats/hosts \
+    wget https://raw.githubusercontent.com/EnergizedProtection/block/master/porn/formats/hosts \
     && cat hosts >> /etc/hosts && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     cd /tmp && \
