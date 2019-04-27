@@ -33,8 +33,9 @@ RUN set -ex && \
                                 xmlto \
                                 libpcre32 \
                                 g++ && \
-    wget https://raw.githubusercontent.com/EnergizedProtection/block/master/porn/formats/hosts \
-    && cat hosts >> /etc/hosts && \
+    cd / && \
+    wget https://raw.githubusercontent.com/EnergizedProtection/block/master/porn/formats/hosts && \
+    cat hosts >> /etc/hosts && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     cd /tmp && \
     curl -sSL $KCP_URL | tar xz server_linux_amd64 && \
@@ -67,7 +68,7 @@ DNS_ADDR_2=8.8.4.4 \
 ARGS='' \
 KCP_LISTEN=38240 \
 KCP_PASS=kcppwd \
-KCP_ENCRYPT=aes \
+KCP_ENCRYPT=aes-128 \
 KCP_MODE=fast2 \
 KCP_MUT=1350 \
 KCP_NOCOMP='' \
