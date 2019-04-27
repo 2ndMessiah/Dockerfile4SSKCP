@@ -34,7 +34,7 @@ RUN set -ex && \
                                 libpcre32 \
                                 g++ && \
     cd / && \
-    wget https://raw.githubusercontent.com/EnergizedProtection/block/master/porn/formats/hosts && \
+    wget --no-check-certificate -q https://raw.githubusercontent.com/EnergizedProtection/block/master/porn/formats/hosts && \
     cat hosts \
     >> /etc/hosts && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
