@@ -35,7 +35,8 @@ RUN set -ex && \
                                 g++ && \
     cd / && \
     wget https://raw.githubusercontent.com/EnergizedProtection/block/master/porn/formats/hosts && \
-    cat hosts >> /etc/hosts && \
+    cat hosts \
+    >> /etc/hosts && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     cd /tmp && \
     curl -sSL $KCP_URL | tar xz server_linux_amd64 && \
