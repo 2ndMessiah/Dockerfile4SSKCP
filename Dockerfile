@@ -13,7 +13,6 @@ RUN set -ex && \
                                 autoconf \
                                 build-base \
                                 curl \
-                                wget \
                                 libev-dev \
                                 linux-headers \
                                 libsodium-dev \
@@ -94,6 +93,4 @@ CMD /usr/bin/ss-server -s $SERVER_ADDR \
               --crypt $KCP_ENCRYPT \
               --mtu $KCP_MUT \
               $KCP_NOCOMP \
-              $KCP_ARGS && \
-              wget https://raw.githubusercontent.com/EnergizedProtection/block/master/porn/formats/hosts && \
-              cat hosts >> /etc/hosts
+              $KCP_ARGS
