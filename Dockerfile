@@ -30,7 +30,6 @@ RUN set -ex && \
                                 openssl \
                                 asciidoc \
                                 xmlto \
-                                wget \
                                 libpcre32 \
                                 g++ && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
@@ -71,7 +70,7 @@ KCP_MUT=1350 \
 KCP_NOCOMP='' \
 KCP_ARGS=''
 
-USER root
+USER nobody
 
 EXPOSE $SERVER_PORT/tcp $SERVER_PORT/udp
 EXPOSE $KCP_LISTEN/udp
@@ -94,6 +93,4 @@ CMD /usr/bin/ss-server -s $SERVER_ADDR \
               --crypt $KCP_ENCRYPT \
               --mtu $KCP_MUT \
               $KCP_NOCOMP \
-              $KCP_ARGS && \
-              wget https://raw.githubusercontent.com/EnergizedProtection/block/master/porn/formats/hosts && \
-              cat hosts >> /etc/hosts
+              $KCP_ARGS
